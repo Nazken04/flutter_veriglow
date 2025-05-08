@@ -14,7 +14,8 @@ project 'Runner', {
 def flutter_root
   generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
   unless File.exist?(generated_xcode_build_settings_path)
-    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first. \
+Alternatively, try deleting the Pods/ directory and Podfile.lock file, then run pod install --repo-update."
   end
 
   File.foreach(generated_xcode_build_settings_path) do |line|
@@ -24,12 +25,8 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
+# This line loads Flutter's Podfile helper functions.
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
-
-# Keep this line at the end of your Podfile.
-# It will ensure all your Flutter plugins are included as pods.
-flutter_application_path = File.expand_path('..')
-load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
 
 
 target 'Runner' do
@@ -46,9 +43,9 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
     # If you have other build settings to apply, add them here.
-    # For example, to set the Swift version for all pods:
-    # target.build_configurations.each do |config|
-    #   config.build_settings['SWIFT_VERSION'] = '5.0' # Or your desired Swift version
-    # end
+    # For example, to ensure the IPHONEOS_DEPLOYMENT_TARGET is set consistently:
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0' # Or your target version
+    end
   end
 end

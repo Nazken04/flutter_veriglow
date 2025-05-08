@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "864173463366",
+    "project_id": "veriglow-91666",
+    "storage_bucket": "veriglow-91666.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864173463366:android:24b916dc982a2f6549f747",
+        "android_client_info": {
+          "package_name": "com.example.veriglow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnKYnPMHY-zP7z-HxLew0GGg_CDYtMEjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
